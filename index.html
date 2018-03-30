@@ -1,0 +1,189 @@
+<!doctype html>
+<html class="no-js" lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>uka_works</title>
+        <meta name="description" content="説明文">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- アイコンのファイルはルートディレクトに配置 -->
+        <link rel="stylesheet" href="css/common.css">
+        <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 9]>
+            <p class="browserupgrade">IE9未満用のメッセージ</p>
+        <![endif]-->
+
+        <!-- ここにコンテンツ -->
+        <header class="">
+            <div class="head_inner">
+                <h1 class="httl"><a href="/">TITLE</a></h1>
+                <nav class="hnav">
+                    <ul class="hnav_ul">
+                        <li class="all" data-filter="all"><span class="all">ALL</span></li>
+                        <li class="web" data-filter=".web"><span class="web">WEB</span></li>
+                        <li class="illust" data-filter=".illust"><span class="illust">ILLUST</span></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="contents">
+            <div class="mainWrap">
+                <div class="postWrap flex wrap justify container">
+                	<figure class="mix web post">
+                        <a href=""><a href="project/01.html"><img src="images/thumb@2x.png" alt=""></a></a>
+                        <figcaption class="post_cap">記事の説明が入ります</figcaption>
+                    </figure>
+                    <figure class="mix illust post">
+                        <a href="project/01.html"><img src="images/thumb@2x.png" alt=""></a>
+                        <figcaption class="post_cap">記事の説明が入ります</figcaption>
+                    </figure>
+                    <figure class="mix web post">
+                        <a href="project/01.html"><img src="images/thumb@2x.png" alt=""></a>
+                        <figcaption class="post_cap">記事の説明が入ります</figcaption>
+                    </figure>
+                    <figure class="mix post">
+                        <a href="project/01.html"><img src="images/thumb@2x.png" alt=""></a>
+                        <figcaption class="post_cap">記事のタイトル<br>記事の説明が入ります入ります</figcaption>
+                    </figure>
+                    <figure class="mix post">
+                        <a href="project/01.html"><img src="images/thumb@2x.png" alt=""></a>
+                        <figcaption class="post_cap">記事の説明が入ります</figcaption>
+                    </figure>
+                    <figure class="mix post">
+                        <a href="project/01.html"><img src="images/thumb@2x.png" alt=""></a>
+                        <figcaption class="post_cap">記事の説明が入ります</figcaption>
+                    </figure>
+                    <figure class="mix post">
+                        <a href="project/01.html"><img src="images/thumb@2x.png" alt=""></a>
+                        <figcaption class="post_cap">記事の説明が入ります</figcaption>
+                    </figure>
+                    <figure class="mix post">
+                        <a href="project/01.html"><img src="images/thumb@2x.png" alt=""></a>
+                        <figcaption class="post_cap">記事の説明が入ります</figcaption>
+                    </figure>
+                    <figure class="mix post">
+                        <a href="project/01.html"><img src="images/thumb@2x.png" alt=""></a>
+                        <figcaption class="post_cap">記事の説明が入ります</figcaption>
+                    </figure>
+                    <figure class="mix web post">
+                        <a href="project/01.html"><img src="images/thumb@2x.png" alt=""></a>
+                        <figcaption class="post_cap">記事の説明が入ります</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
+        <footer>copyright©2017 uka. All Rights Reserved.</footer>
+
+
+    <!-- mixitup/https://www.kunkalabs.com/mixitup/ -->
+       <script src="js/mixitup.min.js"></script>
+
+        <script>
+            // As we have no server-side application or routes, we will use
+            // a URL "hash" for this demo, but we chould just as easily use
+            // a URL route segment.
+
+            // As we will use the target selector in several parts of the demo,
+            // we will declare it as a variable here.
+
+            var targetSelector = '.mix';
+
+            /**
+             * Reads a hash from the URL (if present), and converts it into a class
+             * selector string. E.g "#green" -> ".green". Otherwise, defaults
+             * to the targetSelector, equivalent to "all"
+             *
+             * @return {string}
+             */
+
+            function getSelectorFromHash() {
+                var hash = window.location.hash.replace(/^#/g, '');
+
+                var selector = hash ? '.' + hash : targetSelector;
+
+                return selector;
+            }
+
+            /**
+             * Updates the URL whenever the current filter changes.
+             *
+             * @param   {mixitup.State} state
+             * @return  {void}
+             */
+
+            function setHash(state) {
+                var selector = state.activeFilter.selector;
+                var newHash = '#' + selector.replace(/^./g, '');
+
+                if (selector === targetSelector && window.location.hash) {
+                    // Equivalent to filter "all", remove the hash
+
+                    history.pushState(null, document.title, window.location.pathname); // or history.replaceState()
+                } else if (newHash !== window.location.hash && selector !== targetSelector) {
+                    // Change the hash
+
+                    history.pushState(null, document.title, window.location.pathname + newHash); // or history.replaceState()
+                }
+            }
+
+            // Instantiate and configure the mixer
+
+            var mixer = mixitup('.container', {
+                selectors: {
+                    target: targetSelector
+                },
+                load: {
+                    filter: getSelectorFromHash() // Ensure that the mixer's initial filter matches the URL on startup
+                },
+                callbacks: {
+                    onMixEnd: setHash // Call the setHash() method at the end of each operation
+                }
+            });
+
+            // Add an "onhashchange" handler to keep the mixer in sync as the user goes
+            // back and forward through their history.
+
+            // NB: This may or may not be the desired behavior for your project. If you don't
+            // want MixItUp operations to count as individual history items, simply use
+            // 'replaceState()' instead of 'pushState()' within the 'setHash()' function above.
+            // In which case this handler would no longer be neccessary.
+
+            window.onhashchange = function() {
+                var selector = getSelectorFromHash();
+
+                if (selector === mixer.getState().activeFilter.selector) return; // no change
+
+                mixer.filter(selector);
+            };
+        </script>
+
+
+
+
+
+        <!-- JS配置 
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.12.4.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+        -->
+
+		<!-- Google Analytics: 練習用に設置 -->
+        <!-- Google Analytics: UA-XXXXX-YをあなたのIDに変更 
+        <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-XXXXX-Y', 'auto');
+        ga('send', 'pageview');
+        </script>
+        -->
+    </body>
+</html>
